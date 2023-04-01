@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 const requestHandler = (req,res)=>{
-    console.log('in');
     const method = req.method;
     const url = req.url;
     if (url === '/') {
