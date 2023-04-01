@@ -4,21 +4,25 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const loginRoutes = require('./routes/auth');
 const commonRoutes = require('./routes/common');
+const rootDir = require('./utils/path');
+const path = require('path'); 
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin',adminRoutes);
 
-app.use('/shop',shopRoutes);
+app.use(shopRoutes);
 
-app.use(loginRoutes);
 
-app.use(commonRoutes);
+//app.use(loginRoutes);
+
+//app.use(commonRoutes);
 
 app.use('/',(req,res)=>{
-    res.status(404).send("<h1>Page not found</h1>");
+    res.status(404).sendFile(path.join(rootDir,'views','page-not-found.html'))
 })
 
 app.listen(3000);
