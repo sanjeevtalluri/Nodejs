@@ -1,20 +1,21 @@
-//const http = require('http');
-//const route = require('./route');
-
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
 
-app.use((req,res,next)=>{
-    console.log("in middleware 1");
-    next();
+app.use(bodyParser.urlencoded({extended:false}));
+
+app.use('/add-product',(req,res,next)=>{
+    res.send("<form method='post' action='/product'><input type='text' name='title'><input type='number' name='size'><button>Submit</button></form>")
 })
 
-app.use((req,res,next)=>{
-    console.log("in middleware 2");
+app.use('/product',(req,res,next)=>{
+    console.log(req.body);
+    res.redirect('/');
+})
+
+app.use('/',(req,res,next)=>{
     res.send("<h1>This is express js</h1>")
 })
 
 app.listen(3000);
-
-//const server = http.createServer(route);
-//server.listen(3000);
