@@ -29,16 +29,16 @@ const requestHandler = (req,res)=>{
             body.push(chunk);
         })
         req.on('end', () => {
+            
             const bodyParsed = Buffer.concat(body).toString();
             const inputValue = bodyParsed.split('=')[1];
             fs.writeFile('sample.txt', inputValue, (err) => {
                 res.statusCode = 302;
                 res.setHeader('Location', '/');
                 return res.end();
-            })
+            }) 
         })
     }
     
 }
-
 module.exports = requestHandler;
